@@ -38,6 +38,8 @@ DMASNDED	MACRO
 	move.b	d1,$ffff8913.w
 	ENDM
 
+
+
 	*** SUPER
 	clr.l	-(sp)
 	move.w	#$20,-(sp)		; super
@@ -51,10 +53,10 @@ DMASNDED	MACRO
 	DMASNDED
 	move.b	#%11,$ffff8901.w
 
+
 	move.w	#$2700,sr
 	move.w	#$F00,$ffff8240.w
 
-main	
 	move.w	#2,$ffff8a20.w   ; src x byte increment
 	move.w	#2,$ffff8a2e.w ; dst x increment
 	clr.b	$ffff8a3d.w    ; skew
@@ -62,18 +64,26 @@ main
 	move.w	#-1,$ffff8a2a.w ; endmask2
 	move.w	#-1,$ffff8a2c.w ; endmask3
 	move.w	#$0203,$ffff8a3a.w    ; HOP+OP: $010F=1fill/$0203=copy
-	move.w	#25,$ffff8a38.w ; y count
-	move.w	#2,$ffff8a36.w  ; x word count
 	move.w	#2,$ffff8a22.w   ; src y byte increment
-	move.w	#160,$ffff8a30.w ; dst y increment
-	move.l	buf_blitter,$ffff8a24.w   ; src
-	move.l	buf_blitter+16000,$ffff8a32.w   ; dest
-	move.b	#%11000000,$ffff8a3c.w ; start HOG
-	nop
-	nop
-	not.w	$ffff8240.w
+	move.w	#800,$ffff8a30.w ; dst y increment
 
-	bra.s	main
+main	
+	move.w	#1,$ffff8a38.w ; y count		; 16
+	move.w	#46+92,$ffff8a36.w  ; x word count	; 16
+	move.l	#buf_nothing,$ffff8a24.w	   	; src	; 24
+	move.l	#buf_nothing+16000,$ffff8a32.w   	; dest 	; 24
+mod	move.b	#%11000000,$ffff8a3c.w ; start HOG	; 16
+	nop	; 4
+	nop	; 4
+	nop
+	nop
+	not.w	$ffff8240.w	; 8+8=16
+
+	bra.s	main		; 12
+	; 136
+	; +8*words (blitter) 47*8=376
+	; = 512
+
 
 	clr.w	-(sp)
 	trap #1
