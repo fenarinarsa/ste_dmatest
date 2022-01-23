@@ -11,7 +11,7 @@ In my tests, an STE with C300588 shifter is okay while a Mega STE with C301712 h
 It looks like there was at least two revisions of the C301712 because of this bug, but the combo GST-MCU chip may also have a role in this issue.  
 Also, it seems like the C301712 does not always run fine on STE (see the exxos post below).
 
-In my case I swapped the two chips in my STE/Mega STE and the issue was gone on Mega STE, and the C301712 is working fine in my STE, so I may be lucky.
+In my case I swapped the two chips in my STE/Mega STE and the issue was gone on Mega STE.
 
 
 More information:  
